@@ -5,6 +5,8 @@
  */
 package com.example.jaal.m1.s09;
 
+import java.util.Arrays;
+
 /**
  * Merging two sorted arrays in a new sorted one
  */
@@ -43,6 +45,31 @@ public class Merge {
             result[k] = right[j];
         }
 
+        return result;
+    }
+    
+    public static int[] mymergeiterative(int[] left, int[] right) {
+        int[] result = new int[left.length + right.length];
+        
+        int i = 0;
+        int j = 0;
+        
+        for (int k = 0; k<result.length;k++) {
+        	if (i<left.length && j<right.length) {
+            	if(left[i]<right[j]) {
+            		result[k]=left[i];
+            		i++;
+            	} else {
+            		result[k]=right[j];
+            		j++;
+            	}        		
+        	}       	
+        }        
+        if (i==left.length) {
+        	result[result.length-1] = right[right.length-1];       	
+        } else {
+        	result[result.length-1] = left[left.length-1];         	
+        }        
         return result;
     }
 
@@ -102,5 +129,20 @@ public class Merge {
         }
 
         return recursive(left, i, right, j, result, k);
+    }
+    
+    public static void main(String[] args) {
+        int[] a = { -55, -44, -21, -8, 0, 12, 27, 51, 93, 115, 500 };
+        int[] b = { -57, -40, -20, 1, 13, 28, 55, 99, 119, 200 };
+        
+        int[] c = iterative(a,b);
+        int[] d = mymergeiterative(a,b);
+        System.out.println("Merge prof");
+        System.out.println(Arrays.toString(c));
+        
+        System.out.println("Merge mio");
+        System.out.println(Arrays.toString(d));
+
+   
     }
 }
